@@ -105,9 +105,12 @@ body::before {
 }
 
 .nav-brand {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
-    color: var(--accent);
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .nav-menu {
@@ -236,7 +239,7 @@ body::before {
 .hero-content-wrapper {
     display: grid;
     grid-template-columns: 45% 55%;
-    gap: 4rem;
+    gap: 2rem;
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
@@ -254,8 +257,8 @@ body::before {
 
 .hero-photo-container {
     position: relative;
-    width: 450px;
-    height: 450px;
+    width: 380px;
+    height: 380px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -277,11 +280,11 @@ body::before {
 }
 
 .hero-profile-photo {
-    width: 420px;
-    height: 420px;
+    width: 360px;
+    height: 360px;
     border-radius: 50%;
     object-fit: cover;
-    border: 8px solid rgba(10, 14, 39, 0.9);
+    border: 6px solid rgba(10, 14, 39, 0.9);
     position: relative;
     z-index: 1;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -323,17 +326,18 @@ body::before {
     text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .hero-greeting {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--text-secondary);
     font-weight: 400;
+    margin-bottom: -0.5rem;
 }
 
 .hero-title {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.1;
@@ -352,9 +356,10 @@ body::before {
 }
 
 .hero-subtitle {
-    font-size: 2rem;
+    font-size: 1.6rem;
     color: var(--text-primary);
     font-weight: 500;
+    margin-bottom: -0.3rem;
 }
 
 .typed-text {
@@ -366,10 +371,11 @@ body::before {
 }
 
 .hero-description {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--text-secondary);
-    line-height: 1.8;
+    line-height: 1.7;
     max-width: 500px;
+    margin-bottom: 0.5rem;
 }
 
 /* Social Links */
