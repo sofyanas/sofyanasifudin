@@ -232,28 +232,60 @@ body::before {
     66% { transform: translate(-20px, 20px) rotate(240deg); }
 }
 
-.hero-content {
-    text-align: center;
-    max-width: 800px;
+/* Hero Content Wrapper - Side by Side Layout */
+.hero-content-wrapper {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
     position: relative;
     z-index: 1;
 }
 
-/* Profile Photo Styling */
-.profile-photo-container {
+/* Left Side - Photo */
+.hero-photo-side {
     display: flex;
     justify-content: center;
-    margin-bottom: 2rem;
+    align-items: center;
+    position: relative;
 }
 
-.profile-photo-wrapper {
+.hero-photo-container {
     position: relative;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    padding: 5px;
+    width: 450px;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-circle-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     background: var(--gradient-2);
-    box-shadow: 0 0 40px var(--accent-glow);
+    border-radius: 50%;
+    z-index: 0;
+    animation: photoRotate 20s linear infinite;
+}
+
+@keyframes photoRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hero-profile-photo {
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 8px solid rgba(10, 14, 39, 0.9);
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transition: var(--transition);
     animation: photoFloat 6s ease-in-out infinite;
 }
 
@@ -262,44 +294,117 @@ body::before {
     50% { transform: translateY(-20px); }
 }
 
-.profile-photo {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid rgba(10, 14, 39, 0.9);
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
-    transition: var(--transition);
+.hero-profile-photo:hover {
+    transform: scale(1.05) translateY(-10px);
+    box-shadow: 0 30px 80px rgba(56, 189, 248, 0.4);
 }
 
-.profile-photo-wrapper:hover .profile-photo {
-    transform: scale(1.05);
-    box-shadow: inset 0 0 30px rgba(56, 189, 248, 0.2);
-}
-
-.photo-glow {
+.photo-glow-effect {
     position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     border-radius: 50%;
     background: var(--gradient-2);
-    filter: blur(20px);
-    opacity: 0.4;
+    filter: blur(40px);
+    opacity: 0.3;
     z-index: -1;
-    animation: pulse 3s ease-in-out infinite;
+    animation: glowPulse 3s ease-in-out infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.05); }
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+/* Right Side - Content */
+.hero-text-side {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .hero-greeting {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: var(--text-secondary);
-    margin-bottom: 0.5rem;
+    font-weight: 400;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+    margin: 0;
+    background: linear-gradient(135deg, #E5E7EB 0%, #38BDF8 50%, #6366F1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.hero-subtitle {
+    font-size: 2rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.typed-text {
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 500px;
+}
+
+/* Social Links */
+.hero-social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(56, 189, 248, 0.1);
+    border: 2px solid rgba(56, 189, 248, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 1.3rem;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.social-icon:hover {
+    background: var(--gradient-2);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px var(--accent-glow);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .hero-title {
@@ -1220,9 +1325,55 @@ body::before {
         display: flex;
     }
 
-    .profile-photo-wrapper {
-        width: 150px;
-        height: 150px;
+    .hero-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .hero-photo-side {
+        order: 1;
+    }
+
+    .hero-text-side {
+        order: 2;
+        text-align: center;
+        align-items: center;
+    }
+
+    .hero-photo-container {
+        width: 300px;
+        height: 300px;
+    }
+
+    .hero-profile-photo {
+        width: 280px;
+        height: 280px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .hero-social-links {
+        justify-content: center;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .tech-stack-preview {
+        justify-content: center;
     }
 
     .about-content {
@@ -1234,18 +1385,6 @@ body::before {
         width: 250px;
         height: 320px;
         margin: 0 auto;
-    }
-
-    .hero-title {
-        font-size: 2.5rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-
-    .hero-description {
-        font-size: 1rem;
     }
 
     .section-title {
@@ -1272,6 +1411,30 @@ body::before {
 @media (max-width: 480px) {
     .hero-title {
         font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .hero-photo-container {
+        width: 250px;
+        height: 250px;
+    }
+
+    .hero-profile-photo {
+        width: 230px;
+        height: 230px;
+    }
+
+    .hero-social-links {
+        gap: 0.5rem;
+    }
+
+    .social-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
     }
 
     .hero-buttons {
