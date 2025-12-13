@@ -2,7 +2,7 @@
 
 A professional, elegant, and responsive dark-mode portfolio website showcasing my skills as a Next.js Developer and Data Administrator with expertise in cloud technologies.
 
-![Portfolio Preview](https://raw.githubusercontent.com/sofyanas/portfolio/main/preview.png)
+![Portfolio Preview](https://raw.githubusercontent.com/sofyanas/sofyanasifudin/main/preview.png)
 
 ## ✨ Features
 
@@ -60,8 +60,8 @@ A professional, elegant, and responsive dark-mode portfolio website showcasing m
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/sofyanas/portfolio.git
-   cd portfolio
+   git clone https://github.com/sofyanas/sofyanasifudin.git
+   cd sofyanasifudin
    ```
 
 2. **Add your photo**
@@ -97,7 +97,7 @@ npx serve
 
 ### Deploy to Vercel (Recommended)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sofyanas/portfolio)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sofyanas/sofyanasifudin)
 
 **Manual deployment:**
 
@@ -114,7 +114,7 @@ Your site will be live at `https://your-project.vercel.app`
 1. Go to repository Settings
 2. Navigate to Pages section
 3. Select main branch as source
-4. Your site will be published at `https://sofyanas.github.io/portfolio`
+4. Your site will be published at `https://sofyanas.github.io/sofyanasifudin`
 
 ### Deploy to Netlify
 
@@ -151,7 +151,7 @@ Add new project cards in the Projects section of `index.html` following the exis
 ## 📂 Project Structure
 
 ```
-portfolio/
+sofyanasifudin/
 ├── index.html          # Main HTML structure
 ├── styles.css          # All styles and animations
 ├── script.js           # JavaScript functionality
