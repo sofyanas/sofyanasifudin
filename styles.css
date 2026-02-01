@@ -368,6 +368,22 @@ body::before {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 600;
+    position: relative;
+    display: inline-block;
+}
+
+.typed-text::after {
+    content: '|';
+    position: absolute;
+    right: -10px;
+    color: var(--accent);
+    animation: blink 0.7s infinite;
+    -webkit-text-fill-color: var(--accent); /* Override transparent text fill */
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .hero-description {

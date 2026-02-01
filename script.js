@@ -13,7 +13,7 @@ navLinks.forEach(link => {
         e.preventDefault();
         const targetId = link.getAttribute('href');
         const targetSection = document.querySelector(targetId);
-        
+
         if (targetSection) {
             const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
             window.scrollTo({
@@ -21,7 +21,7 @@ navLinks.forEach(link => {
                 behavior: 'smooth'
             });
         }
-        
+
         // Close mobile menu after clicking
         navMenu.classList.remove('active');
     });
@@ -80,17 +80,17 @@ function animateCursor() {
     // Smooth following for cursor dot
     cursorX += (mouseX - cursorX) * 0.3;
     cursorY += (mouseY - cursorY) * 0.3;
-    
+
     // Slower following for outline
     outlineX += (mouseX - outlineX) * 0.15;
     outlineY += (mouseY - outlineY) * 0.15;
-    
+
     cursorDot.style.left = cursorX + 'px';
     cursorDot.style.top = cursorY + 'px';
-    
+
     cursorOutline.style.left = (outlineX - 15) + 'px';
     cursorOutline.style.top = (outlineY - 15) + 'px';
-    
+
     requestAnimationFrame(animateCursor);
 }
 
@@ -104,7 +104,7 @@ document.querySelectorAll('a, button, .project-card, .badge-card, .contact-card'
         cursorOutline.style.height = '50px';
         cursorOutline.style.borderColor = '#38BDF8';
     });
-    
+
     el.addEventListener('mouseleave', () => {
         cursorDot.style.transform = 'scale(1)';
         cursorOutline.style.width = '30px';
@@ -122,12 +122,12 @@ const shapes = document.querySelectorAll('.shape');
 window.addEventListener('mousemove', (e) => {
     const x = e.clientX / window.innerWidth;
     const y = e.clientY / window.innerHeight;
-    
+
     shapes.forEach((shape, index) => {
         const speed = (index + 1) * 20;
         const xMove = (x - 0.5) * speed;
         const yMove = (y - 0.5) * speed;
-        
+
         shape.style.transform = `translate(${xMove}px, ${yMove}px)`;
     });
 });
@@ -139,12 +139,12 @@ window.addEventListener('mousemove', (e) => {
 function setActiveNavLink() {
     const sections = document.querySelectorAll('.section, .hero');
     const scrollPosition = window.scrollY + 100;
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
         const sectionId = section.getAttribute('id');
-        
+
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -185,7 +185,7 @@ window.addEventListener('scroll', handleNavbarScroll);
 
 function animateSkillBars() {
     const skillBars = document.querySelectorAll('.skill-progress');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -198,7 +198,7 @@ function animateSkillBars() {
     }, {
         threshold: 0.5
     });
-    
+
     skillBars.forEach(bar => observer.observe(bar));
 }
 
@@ -211,26 +211,26 @@ document.addEventListener('DOMContentLoaded', animateSkillBars);
 
 function animateOnScroll() {
     const elements = document.querySelectorAll('.stat-card, .badge-card, .project-card, .contact-card, .timeline-item');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '0';
                 entry.target.style.transform = 'translateY(30px)';
-                
+
                 setTimeout(() => {
                     entry.target.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                 }, 100);
-                
+
                 observer.unobserve(entry.target);
             }
         });
     }, {
         threshold: 0.1
     });
-    
+
     elements.forEach(element => observer.observe(element));
 }
 
@@ -238,188 +238,100 @@ function animateOnScroll() {
 document.addEventListener('DOMContentLoaded', animateOnScroll);
 
 // ============================================
-// TYPING EFFECT FOR HERO SUBTITLE
+// 3D TILT EFFECT FOR PROJECT CARD
+// ============================================
+
+const tiltCards = document.querySelectorAll('.project-card');
+
+tiltCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+        const rotateY = ((x - centerX) / centerX) * 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    });
+});
+
+// ============================================
+// MAGNETIC BUTTONS EFFECT
+// ============================================
+
+const magneticButtons = document.querySelectorAll('.btn');
+
+magneticButtons.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const xMove = (x - centerX) * 0.2; // Move 20% of mouse distance
+        const yMove = (y - centerY) * 0.2;
+
+        btn.style.transform = `translate(${xMove}px, ${yMove}px)`;
+    });
+
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0, 0)';
+    });
+});
+
+// ============================================
+// TYPING EFFECT FOR HERO
 // ============================================
 
 function typeWriter() {
-    const subtitle = document.querySelector('.hero-subtitle');
-    if (!subtitle) return;
-    
-    const text = subtitle.textContent;
-    subtitle.textContent = '';
-    subtitle.style.opacity = '1';
-    
-    let i = 0;
-    const speed = 100; // Typing speed in milliseconds
-    
+    const typedTextSpan = document.querySelector('.typed-text');
+    if (!typedTextSpan) return;
+
+    const phrases = ["Laravel Developer", "Next.js Developer", "School Data Admin"];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typeSpeed = 100;
+
     function type() {
-        if (i < text.length) {
-            subtitle.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    
-    // Start typing after a delay
-    setTimeout(type, 1000);
-}
+        const currentPhrase = phrases[phraseIndex];
 
-// Uncomment below to enable typing effect
-// document.addEventListener('DOMContentLoaded', typeWriter);
-
-// ============================================
-// SCROLL TO TOP BUTTON
-// ============================================
-
-const scrollTopBtn = document.querySelector('.footer-links a[href="#home"]');
-
-if (scrollTopBtn) {
-    scrollTopBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-}
-
-// ============================================
-// FORM VALIDATION (if you add a contact form)
-// ============================================
-
-// Example form validation function
-function validateForm(formElement) {
-    const inputs = formElement.querySelectorAll('input, textarea');
-    let isValid = true;
-    
-    inputs.forEach(input => {
-        if (input.hasAttribute('required') && !input.value.trim()) {
-            isValid = false;
-            input.classList.add('error');
+        if (isDeleting) {
+            typedTextSpan.textContent = currentPhrase.substring(0, charIndex - 1);
+            charIndex--;
+            typeSpeed = 50;
         } else {
-            input.classList.remove('error');
+            typedTextSpan.textContent = currentPhrase.substring(0, charIndex + 1);
+            charIndex++;
+            typeSpeed = 100;
         }
-        
-        // Email validation
-        if (input.type === 'email' && input.value.trim()) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(input.value)) {
-                isValid = false;
-                input.classList.add('error');
-            }
+
+        if (!isDeleting && charIndex === currentPhrase.length) {
+            isDeleting = true;
+            typeSpeed = 2000; // Pause at end
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            typeSpeed = 500;
         }
-    });
-    
-    return isValid;
-}
 
-// ============================================
-// LOADING ANIMATION (Optional)
-// ============================================
-
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-});
-
-// ============================================
-// INTERACTIVE PROJECT CARDS
-// ============================================
-
-const projectCards = document.querySelectorAll('.project-card');
-
-projectCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
-
-// ============================================
-// BADGE CARDS HOVER EFFECT
-// ============================================
-
-const badgeCards = document.querySelectorAll('.badge-card');
-
-badgeCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        const icon = this.querySelector('.badge-icon');
-        if (icon) {
-            icon.style.transform = 'rotate(360deg) scale(1.1)';
-            icon.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-        }
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        const icon = this.querySelector('.badge-icon');
-        if (icon) {
-            icon.style.transform = 'rotate(0deg) scale(1)';
-        }
-    });
-});
-
-// ============================================
-// CONTACT CARDS INTERACTION
-// ============================================
-
-const contactCards = document.querySelectorAll('.contact-card');
-
-contactCards.forEach(card => {
-    card.addEventListener('click', function(e) {
-        // Add ripple effect
-        const ripple = document.createElement('span');
-        ripple.style.position = 'absolute';
-        ripple.style.borderRadius = '50%';
-        ripple.style.background = 'rgba(56, 189, 248, 0.3)';
-        ripple.style.width = ripple.style.height = '100px';
-        ripple.style.left = e.offsetX - 50 + 'px';
-        ripple.style.top = e.offsetY - 50 + 'px';
-        ripple.style.pointerEvents = 'none';
-        ripple.style.animation = 'ripple 0.6s ease-out';
-        
-        this.style.position = 'relative';
-        this.appendChild(ripple);
-        
-        setTimeout(() => ripple.remove(), 600);
-    });
-});
-
-// Add ripple animation to CSS dynamically
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes ripple {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
+        setTimeout(type, typeSpeed);
     }
-`;
-document.head.appendChild(style);
 
-// ============================================
-// PERFORMANCE: LAZY LOADING IMAGES
-// ============================================
-
-function lazyLoadImages() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
+    type();
 }
 
-document.addEventListener('DOMContentLoaded', lazyLoadImages);
+document.addEventListener('DOMContentLoaded', typeWriter);
 
 // ============================================
 // CONSOLE MESSAGE
@@ -449,7 +361,7 @@ function debounce(func, wait) {
 // Throttle function for scroll events
 function throttle(func, limit) {
     let inThrottle;
-    return function() {
+    return function () {
         const args = arguments;
         const context = this;
         if (!inThrottle) {
@@ -484,12 +396,12 @@ document.addEventListener('keydown', (e) => {
 const focusableElements = document.querySelectorAll('a, button, input, textarea');
 
 focusableElements.forEach(element => {
-    element.addEventListener('focus', function() {
+    element.addEventListener('focus', function () {
         this.style.outline = '2px solid var(--accent)';
         this.style.outlineOffset = '2px';
     });
-    
-    element.addEventListener('blur', function() {
+
+    element.addEventListener('blur', function () {
         this.style.outline = 'none';
     });
 });
